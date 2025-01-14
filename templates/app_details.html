@@ -1,0 +1,197 @@
+
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>{{ app.name }} Details</title>
+    <style>
+        body {
+            font-family: Arial, sans-serif;
+            margin: 0;
+            padding: 0;
+            background-color: #f4f4f9;
+            display: flex;
+            height: 100vh;
+        }
+
+        .sidebar {
+            width: 250px;
+            background-color: #e6e8f1;
+            padding: 20px;
+            display: flex;
+            flex-direction: column;
+            align-items: flex-start;
+            box-shadow: 2px 0 6px rgba(0, 0, 0, 0.1);
+        }
+
+        .sidebar a {
+            display: block;
+            width: 100%;
+            padding: 10px 15px;
+            margin-bottom: 10px;
+            font-size: 16px;
+            color: #5a5a5a;
+            text-decoration: none;
+            border-radius: 5px;
+            text-align: left;
+        }
+
+        .sidebar a.active,
+        .sidebar a:hover {
+            background-color: #6f7bee;
+            color: #ffffff;
+        }
+
+        .container {
+            flex: 1;
+            display: flex;
+            flex-direction: column;
+            background-color: #ffffff;
+            overflow-y: auto;
+        }
+
+        .app-header {
+            display: flex;
+            align-items: center;
+            justify-content: space-between;
+            padding: 20px;
+            background-color: #007bff;
+            color: #ffffff;
+        }
+
+        .app-header img {
+            max-width: 100px;
+            max-height: 100px;
+            border-radius: 10px;
+        }
+
+        .app-header h1 {
+            font-size: 28px;
+            margin: 0;
+        }
+
+        .points {
+            font-size: 20px;
+            font-weight: bold;
+            color: #28a745;
+        }
+
+        .screenshot-section {
+            flex: 1;
+            text-align: center;
+            display: flex;
+            flex-direction: column;
+            align-items: center;
+            justify-content: center;
+            margin: 20px;
+            padding: 20px;
+            border: 2px dashed #ccc;
+            border-radius: 10px;
+            background-color: #f9f9f9;
+        }
+
+        .screenshot-section p {
+            color: #555;
+            font-size: 18px;
+            margin-bottom: 20px;
+        }
+
+        .screenshot-section input {
+            display: none;
+        }
+
+        .screenshot-list {
+            margin: 20px;
+            padding: 20px;
+            display: flex;
+            justify-content: center;
+            flex-wrap: wrap;
+            gap: 10px;
+        }
+
+        .screenshot-list img {
+            max-width: 150px;
+            max-height: 150px;
+            border-radius: 10px;
+            box-shadow: 0 4px 6px rgba(0, 0, 0, 0.1);
+        }
+    </style>
+    <script>
+        function handleDrop(event) {
+            event.preventDefault();
+            const files = event.dataTransfer.files;
+            const formData = new FormData();
+            formData.append('screenshot', files[0]);
+
+            fetch('', {
+                method: 'POST',
+                body: formData,
+                headers: {
+                    'X-CSRFToken': '{{ csrf_token }}'
+                }
+            }).then(response => response.json())
+              .then(data => {
+                  if (data.message) {
+                      alert(data.message);
+                      location.reload();
+                  }
+              });
+        }
+
+        function allowDrop(event) {
+            event.preventDefault();
+        }
+
+        function handleFileUpload() {
+            const input = document.getElementById('screenshot-input');
+            const formData = new FormData();
+            formData.append('screenshot', input.files[0]);
+
+            fetch('', {
+                method: 'POST',
+                body: formData,
+                headers: {
+                    'X-CSRFToken': '{{ csrf_token }}'
+                }
+            }).then(response => response.json())
+              .then(data => {
+                  if (data.message) {
+                      alert(data.message);
+                      location.reload();
+                  }
+              });
+        }
+    </script>
+</head>
+<body>
+    <!-- Sidebar -->
+    <div class="sidebar">
+        <a href="#" class="active">Home</a>
+        <a href="{% url 'profile' %}">Profile</a>
+        <a href="#">Points</a>
+        <a href="#">Task</a>
+        <a href="{% url 'userlogin_page' %}">Logout</a>
+    </div>
+
+    <!-- Main Content -->
+    <div class="container">
+        <div class="app-header">
+            <img src="{{ app.icon_url }}" alt="{{ app.name }} Icon">
+            <a style="color: red; text-decoration: none;"  href="{{ app.app_link }}">Open App</a>
+   
+            <span class="points">{{ app.points }} POINTS</span>
+        </div>
+        <div class="screenshot-section" ondrop="handleDrop(event)" ondragover="allowDrop(event)">
+            <p>Upload  screenshots here to complete the task</p>
+            <label for="screenshot-input" style="cursor: pointer; color: #007bff;">Or click to select a file</label>
+            <input type="file" id="screenshot-input" onchange="handleFileUpload()">
+        </div>
+        <div class="screenshot-list">
+            {% for screenshot in app.screenshots.all %}
+                <img src="{{ screenshot.image.url }}" alt="Screenshot">
+            {% endfor %}
+        </div>
+    </div>
+</body>
+</html>

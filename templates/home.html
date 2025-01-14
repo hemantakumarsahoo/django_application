@@ -1,0 +1,44 @@
+<!DOCTYPE html>
+
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Welcome to App Points</title>
+    <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/4.5.2/css/bootstrap.min.css">
+</head>
+<body>
+    <style>
+        body {
+            font-family: Arial, sans-serif;
+            margin: 0;
+            padding: 0;
+            background-color:rgb(164, 212, 212);
+            color: #333;
+        }
+        h1,h3{
+            color: red;
+
+        }
+
+    </style>
+    <div class="container text-center mt-5">
+        <h1>Welcome to App Points</h1>
+        <p>Track your points and explore new Android apps to earn rewards!</p>
+
+        <div class="mt-4">
+            <a href="{% url 'admin_login' %}" class="btn btn-primary">Admin</a>
+            <a href="{% url 'userlogin_page' %}" class="btn btn-secondary">user</a>
+        </div>
+
+        <div class="mt-5">
+            <h3>About Us</h3>
+            <p>
+                App Points is a platform where users can download Android apps and earn reward points.
+                Admins can add apps and assign point values for user engagement.
+            </p>
+        </div>
+    </div>
+</body>
+</html>
+
