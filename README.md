@@ -9,6 +9,8 @@ This project is a task management platform that enables administrators to manage
 ## Features
 
 ### Admin-Facing Features
+   - usename for admin-:admin
+   - passwod-:Admin@1234 
 1. **Admin Login**: Secure login for administrators (not using the default Django admin).
 2. **Add Apps**: Admins can add Android apps with details such as:
    - App Name
@@ -16,9 +18,13 @@ This project is a task management platform that enables administrators to manage
    - Category/Sub-category
    - Points for task completion
    - App Icon
+
 3. **Manage Apps**: View and edit the list of apps added to the platform.
 
 ### User-Facing Features
+for demo use
+   - usename for user-:kumar
+   - passwod-:kuma1234
 1. **User Signup and Login**: Secure user authentication system.
 2. **Profile Management**: Users can view and update their profile details, including:
    - First Name
@@ -26,6 +32,7 @@ This project is a task management platform that enables administrators to manage
    - Username
    - Email
    - Change Password functionality
+     
 3. **Task Dashboard**:
    - View a list of apps with their associated points.
    - Drag-and-drop or upload a screenshot to confirm task completion.
