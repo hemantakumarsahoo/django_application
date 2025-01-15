@@ -1,16 +1,6 @@
 Django==4.2.7
 djangorestframework==3.14.0
-Pillow==10.0.1  # For image handling
-django-widget-tweaks==1.4.12  # For enhancing Django forms in templates
-django-storages==1.13.2  # For file storage handling (optional)
-whitenoise==6.5.0  # For serving static files in production
-
-# Authentication and security
-django-allauth==0.57.0  # Optional if advanced user authentication is required
-
-# Database support (if you're not using SQLite)
-psycopg2-binary==2.9.7  # For PostgreSQL
-mysqlclient==2.2.0       # For MySQL (use if applicable)
-
-# Additional tools (optional)
-gunicorn==21.1.0  # For production WSGI server (optional)
+Pillow==10.0.1
+django-widget-tweaks==1.4.12
+django-storages==1.13.2
+whitenoise==6.5.0
